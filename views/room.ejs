@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+		/>
+		<script>
+			const ROOM_ID = "<%= roomId %>";
+		</script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script
+			src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"
+			defer
+		></script>
+		<script src="script.js" defer></script>
+		<style>
+			body {
+				background-color: #1c1a27;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			#video-grid-container {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, 600px);
+				row-gap: 20px;
+				column-gap: 20px;
+				grid-auto-rows: 400px;
+			}
+
+			video {
+				height: 100%;
+				width: 100%;
+				border-radius: 20px;
+
+				object-fit: cover;
+			}
+
+			.controls {
+				position: fixed;
+				bottom: 70px;
+				left: 50%;
+				transform: translateX(-50%);
+				display: flex;
+				justify-content: center;
+				gap: 30px;
+				opacity: 0; /* Start hidden */
+				transition: opacity 0.5s ease; /* Smooth fade in and out */
+				padding: 25px 35px;
+				border-radius: 50px;
+				background-color: #474554;
+			}
+
+			.controls.visible {
+				opacity: 1; /* Visible */
+			}
+
+			.controls button {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				padding: 33px;
+				border: #eee 2px solid;
+				height: 50px;
+				border-radius: 50%;
+				width: 50px;
+				background: linear-gradient(
+					45deg,
+					rgba(63, 94, 251, 1) 0%,
+					rgba(203, 70, 252, 1) 100%
+				);
+				color: #eee;
+				cursor: pointer;
+				transition: background 0.5s ease; /* Transition effect for background */
+			}
+
+			.controls button i {
+				font-size: 22px;
+			}
+
+			.controls button:disabled {
+				pointer-events: none;
+			}
+
+			.controls button:hover {
+				box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+				transform: translateY(-2px);
+				transition: 200ms;
+			}
+
+			.controls button:active {
+				box-shadow: none;
+				transform: translateY(0);
+			}
+		</style>
+	</head>
+	<body>
+		<div id="video-grid-container"></div>
+		<div class="controls-container">
+			<div class="controls">
+				<button id="muteButton">
+					<i class="fa fa-microphone"></i>
+				</button>
+				<button id="videoButton">
+					<i class="fa fa-video"></i>
+				</button>
+				<button id="leaveButton">
+					<i class="fa fa-right-from-bracket"></i>
+				</button>
+			</div>
+		</div>
+	</body>
+</html>
